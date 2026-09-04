@@ -1,0 +1,110 @@
+# Arena PLM connection and attribute mapping.
+#
+# ============================================================================
+# NOTHING IN THIS FILE HAS BEEN VERIFIED AGAINST ARENA.
+# ============================================================================
+#
+# Every value below is deliberately blank. CLAUDE.md forbids inventing Arena
+# API endpoints and guessing Arena attribute names, so this file ships empty
+# and the application refuses to start until a human fills it in from:
+#
+#   1. The official Arena REST API documentation, for `api`.
+#   2. Your own Arena workspace, for `lifecycle` and `attributes`.
+#
+# Copy this file to config/arena.yaml and complete it. A blank required value
+# produces a startup error naming the exact field, rather than a silent guess.
+
+api:
+  # Base URL of the Arena REST API, without a trailing slash.
+  base_url: ""
+
+  # Path templates, relative to base_url. Placeholders in {braces} are filled
+  # in at call time. The placeholder names below are what the code expects;
+  # the paths themselves must come from the Arena API documentation.
+  endpoints:
+    login: ""            # POST, exchanges credentials for a session
+    logout: ""           # POST, ends the session
+    item_search: ""      # GET, searches items by attribute
+    item: ""             # GET, single item, expects {item_guid}
+    item_files: ""       # GET, files on an item, expects {item_guid}
+    file_content: ""     # GET, file bytes, expects {file_guid}
+
+  # Name of the request header carrying the session token, and the workspace
+  # identifier header if your Arena instance requires one.
+  session_header: ""
+  workspace_header: ""
+
+  timeout_seconds: 30
+  max_retries: 3
+
+lifecycle:
+  # Which Arena lifecycle state names count as "released" and therefore
+  # findable through the UI. Open Decisions in CLAUDE.md records this as
+  # unresolved. Anything not listed here is treated as NOT released.
+  released_states: []
+
+  # States to label as superseded or obsolete when a user with the
+  # appropriate role deliberately asks to see historical revisions.
+  superseded_states: []
+  obsolete_states: []
+
+attributes:
+  # Maps each searchable parameter used by the UI dropdowns to the Arena
+  # attribute that holds it.
+  #
+  #   arena_name  - the attribute's name or GUID in Arena, exactly as Arena
+  #                 reports it. Required.
+  #   type        - one of: string, number, dimension.
+  #   unit        - required when type is dimension. Never omit it; a bare
+  #                 number with an implied unit is rejected at load time.
+  #   families    - optional. Product families this parameter applies to.
+  #                 Omit to apply to all.
+  #
+  # Add or remove parameters here rather than in code. A parameter with no
+  # confirmed Arena attribute must not appear as a dropdown (CLAUDE.md 4.3).
+
+  product_family:
+    arena_name: ""
+    type: string
+
+  product_type:
+    arena_name: ""
+    type: string
+
+  size:
+    arena_name: ""
+    type: string
+
+  width:
+    arena_name: ""
+    type: dimension
+    unit: ""
+
+  height:
+    arena_name: ""
+    type: dimension
+    unit: ""
+
+  material:
+    arena_name: ""
+    type: string
+
+  style:
+    arena_name: ""
+    type: string
+
+  mounting_type:
+    arena_name: ""
+    type: string
+
+files:
+  # How to recognise the released drawing PDF among an item's attachments.
+  # CLAUDE.md Open Decisions: "Which attachment is the released PDF where an
+  # item has several". Until that is settled, set only pdf_mime_types and the
+  # code will report an ambiguous match rather than picking one.
+  pdf_mime_types:
+    - application/pdf
+
+  # Optional. An Arena file category or title pattern identifying the drawing
+  # PDF when an item carries several PDFs. Leave blank until confirmed.
+  drawing_category: ""
