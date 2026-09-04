@@ -1,0 +1,17 @@
+# Credentials — never commit
+.env
+*.env
+!config/credentials.example.env
+
+# Completed Arena configuration may name internal endpoints and attributes
+config/arena.yaml
+
+# Retrieved controlled documents must not end up in version control
+*.pdf
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage

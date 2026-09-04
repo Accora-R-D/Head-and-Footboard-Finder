@@ -1,0 +1,5 @@
+# Runtime dependencies for the Arena service.
+# Tests use the standard library only and need nothing beyond PyYAML.
+
+PyYAML>=6.0
+requests>=2.31
