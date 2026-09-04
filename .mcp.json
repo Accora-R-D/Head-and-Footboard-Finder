@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "onshape": {
+      "command": "node",
+      "args": ["mcp/onshape-mcp.mjs"],
+      "env": {}
+    },
+    "onshape-labs": {
+      "type": "http",
+      "url": "https://fs-mcp.labs.onshape.app/mcp"
+    }
+  }
+}

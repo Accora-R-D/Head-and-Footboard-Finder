@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Head and Footboard Finder</title>
+    <meta
+      name="description"
+      content="Select a bed specification and export the matching Onshape drawing as a PDF."
+    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛏️</text></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1 class="app__title">🛏️ Head &amp; Footboard Finder</h1>
+        <p class="app__subtitle">
+          Choose a bed specification to locate its Onshape drawing and export it as a PDF.
+        </p>
+      </header>
+
+      <form id="finder-form" class="card" novalidate>
+        <div class="fields" id="fields">
+          <!-- Dropdowns injected from /api/options -->
+          <p class="fields__loading" id="fields-loading">Loading options…</p>
+        </div>
+
+        <div class="keypreview" id="keypreview" hidden>
+          <span class="keypreview__label">Drawing key</span>
+          <code class="keypreview__value" id="keypreview-value"></code>
+          <button
+            type="button"
+            class="keypreview__copy"
+            id="keypreview-copy"
+            title="Copy key"
+            aria-label="Copy drawing key"
+          >Copy</button>
+          <span class="keypreview__hint">Name your Onshape drawing to contain this.</span>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submit" class="btn btn--primary" disabled>
+            Find drawing &amp; export PDF
+          </button>
+          <button type="button" id="reset" class="btn btn--ghost" hidden>Start over</button>
+        </div>
+      </form>
+
+      <section
+        id="progress-panel"
+        class="card progress"
+        aria-live="polite"
+        hidden
+      >
+        <h2 class="progress__heading">Progress</h2>
+        <ol class="steps" id="steps"></ol>
+
+        <div id="result" class="result" hidden>
+          <p class="result__message" id="result-message"></p>
+          <a id="download-link" class="btn btn--primary" download href="#">Download PDF</a>
+        </div>
+
+        <div id="error" class="error" role="alert" hidden>
+          <p class="error__message" id="error-message"></p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
